@@ -1,0 +1,55 @@
+{
+  "paper_doi": "10.1007/s10922-022-09691-3",
+  "paper_version": "published_2023_volume_31_article_3",
+  "data_root": "dataset",
+  "datasets": {
+    "unsw": "NF-UNSW-NB15-v2/NF-UNSW-NB15-v2.csv",
+    "bot": "NF-BoT-IoT-v2/NF-BoT-IoT-v2.csv",
+    "cic": "NF-CSE-CIC-IDS2018-v2/NF-CSE-CIC-IDS2018-v2_1m.csv"
+  },
+  "hidden_units": [
+    12,
+    6,
+    3
+  ],
+  "activation": "relu",
+  "output_activation": "sigmoid",
+  "dropout": 0.4,
+  "batch_size": 2048,
+  "local_epochs": 3,
+  "rounds": 10,
+  "client_learning_rate": 0.001,
+  "server_learning_rate": 0.05,
+  "test_fraction": 0.3,
+  "balance": "random_undersample_to_minority_before_split",
+  "deduplicate": false,
+  "implementation_choices_not_specified_in_paper": {
+    "seed": 42,
+    "split": "stratified_shuffle",
+    "scaler_fit": "each_dataset_train_only",
+    "lstm_shape": [
+      1,
+      39
+    ],
+    "lstm_recurrent_activation": "sigmoid",
+    "dropout_placement": "between_hidden_layers_only",
+    "adam_beta1": 0.9,
+    "adam_beta2": 0.999,
+    "adam_epsilon": 1e-07,
+    "threshold": 0.5,
+    "baselines_epochs": 3,
+    "client_weighting": "number_of_examples",
+    "nan_inf_policy": "fail_if_selected_predictors_are_nonfinite"
+  },
+  "extension": "three_clients_unsw_bot_cic_log_zscore",
+  "preprocessing": {
+    "method": "per_client_log_zscore",
+    "fit": "fit_only",
+    "log": "signed_log1p",
+    "std_ddof": 0,
+    "clip": [
+      -8.0,
+      8.0
+    ]
+  }
+}

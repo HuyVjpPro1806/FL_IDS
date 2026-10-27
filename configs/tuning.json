@@ -1,0 +1,120 @@
+{
+  "run_directory": "runs/main",
+  "seed": 42,
+  "models": [
+    "dnn",
+    "lstm",
+    "cnn"
+  ],
+  "trials_per_model": 10,
+  "startup_trials": 5,
+  "rounds": 15,
+  "local_epochs": 3,
+  "client_weighting": "uniform",
+  "baseline_epochs": 45,
+  "lstm_backend": "cudnn",
+  "early_stopping": {
+    "monitor": "val_loss",
+    "patience": 5,
+    "min_delta": 0.0,
+    "restore_best_weights": true
+  },
+  "threshold": 0.5,
+  "selection": "mean_cross_client_validation_f1",
+  "paper_anchor": {
+    "architecture": "12-6-3",
+    "dropout": 0.4,
+    "batch_size": 2048,
+    "client_learning_rate": 0.001,
+    "server_learning_rate": 0.05
+  },
+  "model_tuning": {
+    "dnn": {
+      "anchor": {
+        "architecture": "8-4-2",
+        "dropout": 0.5,
+        "batch_size": 1024,
+        "client_learning_rate": 0.0005,
+        "server_learning_rate": 0.02
+      },
+      "search_space": {
+        "server_learning_rate": [
+          0.005,
+          0.0075,
+          0.01,
+          0.015,
+          0.02
+        ]
+      }
+    },
+    "cnn": {
+      "anchor": {
+        "architecture": "8-16-8",
+        "kernel_size": 3,
+        "dropout": 0.2,
+        "batch_size": 2048,
+        "client_learning_rate": 0.0005,
+        "server_learning_rate": 0.01
+      },
+      "search_space": {
+        "architecture": [
+          "4-8-4",
+          "8-16-8",
+          "16-32-16"
+        ],
+        "kernel_size": [
+          3,
+          5
+        ],
+        "dropout": [
+          0.1,
+          0.2,
+          0.3
+        ],
+        "batch_size": [
+          1024,
+          2048,
+          4096
+        ],
+        "client_learning_rate": [
+          0.0003,
+          0.0005,
+          0.001
+        ],
+        "server_learning_rate": [
+          0.005,
+          0.01,
+          0.02
+        ]
+      }
+    }
+  },
+  "search_space": {
+    "architecture": [
+      "8-4-2",
+      "12-6-3",
+      "16-8-4"
+    ],
+    "dropout": [
+      0.3,
+      0.4,
+      0.5
+    ],
+    "batch_size": [
+      1024,
+      2048,
+      4096
+    ],
+    "client_learning_rate": [
+      0.0005,
+      0.001,
+      0.002
+    ],
+    "server_learning_rate": [
+      0.01,
+      0.025,
+      0.05,
+      0.075
+    ]
+  }
+}

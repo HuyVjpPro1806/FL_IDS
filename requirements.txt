@@ -1,0 +1,14 @@
+tensorflow==2.14.1
+keras==2.14.0
+tensorflow-federated==0.87.0
+numpy==1.25.2
+pandas==2.2.3
+scipy==1.9.3
+scikit-learn==1.4.2
+matplotlib==3.8.4
+jupyterlab==4.0.13
+ipykernel>=6,<7
+optuna==4.5.0
+
+# Working environment: WSL Ubuntu-22.04, Python 3.10, /opt/flids-tf.
+# Its TFF worker is a CUDA build. Package versions were not specified in the paper.

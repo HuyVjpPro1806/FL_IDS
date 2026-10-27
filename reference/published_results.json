@@ -1,0 +1,128 @@
+{
+  "source": "https://doi.org/10.1007/s10922-022-09691-3",
+  "version": "published journal, Tables 5 and 6",
+  "units": "fractions 0..1",
+  "used_for_training_or_selection": false,
+  "results": [
+    {
+      "model": "dnn",
+      "scenario": "federated",
+      "test_dataset": "unsw",
+      "accuracy": 0.9116,
+      "auc": 0.965,
+      "f1": 0.9051,
+      "recall": 0.8432,
+      "far": 0.02
+    },
+    {
+      "model": "dnn",
+      "scenario": "centralized",
+      "test_dataset": "unsw",
+      "accuracy": 0.9937999999999999,
+      "auc": 0.9947,
+      "f1": 0.9937999999999999,
+      "recall": 0.9942,
+      "far": 0.0067
+    },
+    {
+      "model": "dnn",
+      "scenario": "local",
+      "test_dataset": "unsw",
+      "accuracy": 0.5134000000000001,
+      "auc": 0.5989,
+      "f1": 0.0789,
+      "recall": 0.0417,
+      "far": 0.0148
+    },
+    {
+      "model": "lstm",
+      "scenario": "federated",
+      "test_dataset": "unsw",
+      "accuracy": 0.8892,
+      "auc": 0.94,
+      "f1": 0.8837999999999999,
+      "recall": 0.8427,
+      "far": 0.0643
+    },
+    {
+      "model": "lstm",
+      "scenario": "centralized",
+      "test_dataset": "unsw",
+      "accuracy": 0.958,
+      "auc": 0.9845999999999999,
+      "f1": 0.9565,
+      "recall": 0.9255,
+      "far": 0.0096
+    },
+    {
+      "model": "lstm",
+      "scenario": "local",
+      "test_dataset": "unsw",
+      "accuracy": 0.5232,
+      "auc": 0.7975,
+      "f1": 0.1082,
+      "recall": 0.057800000000000004,
+      "far": 0.0115
+    },
+    {
+      "model": "dnn",
+      "scenario": "federated",
+      "test_dataset": "bot",
+      "accuracy": 0.9308,
+      "auc": 0.9595,
+      "f1": 0.9301,
+      "recall": 0.9192,
+      "far": 0.0574
+    },
+    {
+      "model": "dnn",
+      "scenario": "centralized",
+      "test_dataset": "bot",
+      "accuracy": 0.9383,
+      "auc": 0.9673999999999999,
+      "f1": 0.9384,
+      "recall": 0.9399,
+      "far": 0.0632
+    },
+    {
+      "model": "dnn",
+      "scenario": "local",
+      "test_dataset": "bot",
+      "accuracy": 0.8621,
+      "auc": 0.8689,
+      "f1": 0.8692,
+      "recall": 0.9166,
+      "far": 0.1925
+    },
+    {
+      "model": "lstm",
+      "scenario": "federated",
+      "test_dataset": "bot",
+      "accuracy": 0.9257,
+      "auc": 0.9518000000000001,
+      "f1": 0.9251999999999999,
+      "recall": 0.919,
+      "far": 0.0675
+    },
+    {
+      "model": "lstm",
+      "scenario": "centralized",
+      "test_dataset": "bot",
+      "accuracy": 0.9390000000000001,
+      "auc": 0.9476,
+      "f1": 0.9376000000000001,
+      "recall": 0.9170999999999999,
+      "far": 0.0392
+    },
+    {
+      "model": "lstm",
+      "scenario": "local",
+      "test_dataset": "bot",
+      "accuracy": 0.8852,
+      "auc": 0.8887,
+      "f1": 0.8887,
+      "recall": 0.9166,
+      "far": 0.1462
+    }
+  ]
+}

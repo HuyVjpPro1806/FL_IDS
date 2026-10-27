@@ -1,0 +1,40 @@
+# Python caches
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Jupyter checkpoints
+.ipynb_checkpoints/
+
+# Source datasets and generated training results
+/dataset/
+/runs/
+
+# Local environment variables and private keys
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Temporary files and operating system metadata
+*.log
+*.tmp
+~$*
+.DS_Store
+Thumbs.db
+
+# Temporary document QA artifacts
+/BaoCao_CoSoLyThuyet/.qa_fl/
+
+# Local Word documents and PDF references
+*.[dD][oO][cC]
+*.[dD][oO][cC][xX]
+*.[pP][dD][fF]
