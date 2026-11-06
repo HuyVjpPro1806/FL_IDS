@@ -23,8 +23,7 @@
   "adam_epsilon": 1e-07,
   "tuning_weighting": "number_of_examples",
   "final_weightings": [
-    "number_of_examples",
-    "uniform"
+    "number_of_examples"
   ],
   "selection": "mean_cross_client_validation_f1",
   "checkpoint_selection": "final_round",

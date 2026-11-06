@@ -1,4 +1,4 @@
-"""Independent CIC study: prepare -> tune weighted FedAvg -> compare both weightings."""
+"""Prepare CIC data, tune the models and evaluate the final experiments."""
 import argparse
 from pathlib import Path
 

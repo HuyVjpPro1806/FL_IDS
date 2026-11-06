@@ -1,4 +1,4 @@
-"""Tune sample-weighted FedAvg only; compare weights after selection, never on test."""
+"""Tune and evaluate Local, Centralized and sample-weighted FedAvg models."""
 import argparse
 import hashlib
 import json
@@ -13,7 +13,6 @@ from models import MODEL_KINDS, MODEL_BACKENDS, make_model
 
 DEFAULT_CONFIG = ROOT/'configs/tuning.json'
 ACTIVE_TASKS = ('binary',)
-WEIGHTINGS = {'fedavg_weighted': 'number_of_examples', 'fedavg_uniform': 'uniform'}
 
 
 def settings(path=None):
@@ -22,8 +21,8 @@ def settings(path=None):
     if c['client_optimizer'] != 'adam': raise ValueError('The requested client optimizer is Adam.')
     if (c['server_optimizer'], c['server_learning_rate'], c['server_momentum']) != ('sgd', 1.0, 0.0):
         raise ValueError('FedAvg requires direct server averaging: SGD lr=1, momentum=0; server Adam is postponed.')
-    if c['tuning_weighting'] != 'number_of_examples' or c['final_weightings'] != ['number_of_examples', 'uniform']:
-        raise ValueError('Tune by sample count; compare both weightings only after tuning.')
+    if c['tuning_weighting'] != 'number_of_examples' or c['final_weightings'] != ['number_of_examples']:
+        raise ValueError('Use sample-count weighting for FedAvg tuning and final evaluation.')
     if c['selection'] != 'mean_cross_client_validation_f1' or c['checkpoint_selection'] != 'final_round':
         raise ValueError('Use the original mean of 12 cross-client validation F1 values.')
     if c['threshold'] != .5: raise ValueError('Binary threshold is fixed at 0.5.')
@@ -66,7 +65,6 @@ def study_identity(c):
 def client_weights(c, weighting):
     m = data_manifest(c)
     sizes = {n: v['fit_rows'] for n,v in m['datasets'].items()}
-    if weighting == 'uniform': return {n:1/len(sizes) for n in sizes}
     if weighting == 'number_of_examples': return {n:v/sum(sizes.values()) for n,v in sizes.items()}
     raise ValueError(weighting)
 
@@ -122,7 +120,7 @@ def split_table(config_path=None):
     return pd.DataFrame([{'client':n,'split':s,**v['splits'][s]} for n,v in m['datasets'].items() for s in SPLITS])
 
 
-def make_process(c, kind, params, task, weighting):
+def make_process(c, kind, params, task):
     from runtime import tf, tff
     from models import adam
     def model_fn():
@@ -133,8 +131,7 @@ def make_process(c, kind, params, task, weighting):
     return tff.learning.algorithms.build_weighted_fed_avg(model_fn=model_fn,
         client_optimizer_fn=adam(params['client_learning_rate'],c),
         server_optimizer_fn=tff.learning.optimizers.build_sgdm(learning_rate=1.0),
-        client_weighting=(tff.learning.ClientWeighting.NUM_EXAMPLES if weighting == 'number_of_examples'
-                          else tff.learning.ClientWeighting.UNIFORM))
+        client_weighting=tff.learning.ClientWeighting.NUM_EXAMPLES)
 
 
 def records(folder, names, task, batch, epochs=1, seed=42):
@@ -216,9 +213,8 @@ def training_step(model, optimizer, task):
 
 def _fit(c,kind,params,task,scenario,mode,folder,identity):
     if task not in c['tasks']: raise ValueError('Disabled task.')
-    from runtime import tf,tff
-    if mode == 'validation' and scenario not in tuning_scenarios(list(data_manifest(c)['datasets'])):
-        raise ValueError('Uniform FedAvg is a final comparison, not a tuning scenario.')
+    names = list(data_manifest(c)['datasets'])
+    if scenario not in tuning_scenarios(names): raise ValueError(f'Unknown scenario: {scenario}')
     destination = Path(folder)/scenario
     destination.mkdir(parents=True,exist_ok=True)
     marker = destination/'result.json'
@@ -227,18 +223,17 @@ def _fit(c,kind,params,task,scenario,mode,folder,identity):
         if result['identity'] != identity: raise ValueError('Completed run identity differs.')
         print(f'REUSE {task}/{kind}/{scenario}',flush=True)
         return result
+    from runtime import tf,tff
     tf.keras.backend.clear_session()
     tf.keras.utils.set_random_seed(c['seed'])
-    names = list(data_manifest(c)['datasets'])
     history, seconds, selected_epoch = [], 0., None
-    weighting = WEIGHTINGS.get(scenario)
+    weighting = 'number_of_examples' if scenario == 'fedavg_weighted' else None
     if weighting:
-        process = make_process(c,kind,params,task,weighting)
+        process = make_process(c,kind,params,task)
         state = process.initialize()
         model = make_model(kind,params,task,c['seed'])
         state = process.set_model_weights(state,tff.learning.models.ModelWeights.from_model(model))
     else:
-        if scenario != 'centralized' and scenario not in ['local_'+n for n in names]: raise ValueError(scenario)
         model = make_model(kind,params,task,c['seed'])
     initial_hash = hashlib.sha256(b''.join(v.tobytes() for v in model.get_weights())).hexdigest()
     data = run_root(c)/'prepared'
@@ -417,7 +412,7 @@ def selected_params(c,kind,task='binary'):
 def _final(c,kind,task,scenarios):
     chosen = selected_params(c,kind,task)
     names = list(data_manifest(c)['datasets'])
-    allowed = ['local_'+n for n in names]+['centralized',*WEIGHTINGS]
+    allowed = tuning_scenarios(names)
     scenarios = allowed if scenarios is None else scenarios
     if not scenarios or set(scenarios)-set(allowed): raise ValueError('Unknown scenario.')
     folder = run_root(c)/'results'/task/kind
@@ -443,12 +438,15 @@ def tuning_table(model,config_path=None,task='binary'):
 
 
 def report(config_path=None):
+    from prepare import settings_base
     c = settings(config_path)
+    scenarios = {*tuning_scenarios(settings_base(c)['clients']), 'fedadam_weighted'}
     directory = run_root(c)/'results'
     rows, per_class, attacks, confusion = [], [], [], []
     for path in sorted(directory.glob('*/*/*/result.json')):
         result = json.loads(path.read_text(encoding='utf-8'))
-        if result['mode'] != 'test' or result['task'] not in c['tasks']: continue
+        if result['mode'] != 'test' or result['task'] not in c['tasks'] or result['scenario'] not in scenarios:
+            continue
         prefix = {k:result[k] for k in ('task','model','scenario','client_weighting')}
         for target,m in {**result['evaluation']['datasets'],'pooled':result['evaluation']['pooled']}.items():
             rows.append({**prefix,'test_client':target,**{k:v for k,v in m.items() if not isinstance(v,(dict,list))}})

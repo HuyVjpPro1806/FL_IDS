@@ -21,7 +21,7 @@ DNN + CNN, sigmoid, BCE thường, threshold 0,5. Client Adam; server FedAvg tr�
 
 Tuning 10 trial/model, tổng 20 trial. Mỗi trial gồm 3 Local + Centralized + FedAvg theo số mẫu fit thực tế. Không gian tìm kiếm và cấu hình khởi điểm nằm trong `configs/tuning.json`. Chọn theo F1 Attack trung bình của 12 đánh giá validation (6 Local chéo, 3 Centralized, 3 FL). Nếu bằng điểm, ưu tiên F1 thấp nhất trong ba client FL rồi đến recall trung bình.
 
-Sau tuning: 3 Local + Centralized + FedAvg weighted + FedAvg uniform. Weighted dùng số mẫu fit thực tế; uniform 1/3. Giữ chung tham số/khởi tạo/seed/data giữa hai FL. FL 15×3 và lấy round cuối; Local/Centralized tối đa 45 epoch, early stopping val_loss patience 5, restore epoch tốt nhất. Test chỉ đánh giá cuối.
+Sau tuning, đánh giá 3 Local, Centralized và FedAvg theo số mẫu fit của từng client. FedAvg chạy 15 round × 3 local epoch và dùng round cuối. Local/Centralized chạy tối đa 45 epoch, dừng sớm theo `val_loss` với patience 5 và khôi phục epoch tốt nhất. Test chỉ dùng để đánh giá cuối.
 
 ## Chạy
 
