@@ -1,0 +1,477 @@
+{
+  "identity": "11a764e23f6bdfd74da64633de497fe71dd0cd34d38cb465dc95b4a47d012b02",
+  "source": {
+    "identity": "6d50c1b4adb4c5745f732392bb68bf8b6f11a838e54c0166f6fcd4d47e4a6f79",
+    "source_sha256": "16a545a3e139b2e85d08b1b7d9d40328c3689a49d0deaafce6dcf8d7b63e1257",
+    "source_state": {
+      "bytes": 3221378977,
+      "mtime_ns": 1791017756535961000
+    },
+    "source_rows": 18893708,
+    "excluded_nonfinite": 0,
+    "attack_vocabulary": [
+      "Benign",
+      "Bot",
+      "Brute Force -Web",
+      "Brute Force -XSS",
+      "DDOS attack-HOIC",
+      "DDOS attack-LOIC-UDP",
+      "DDoS attacks-LOIC-HTTP",
+      "DoS attacks-GoldenEye",
+      "DoS attacks-Hulk",
+      "DoS attacks-SlowHTTPTest",
+      "DoS attacks-Slowloris",
+      "FTP-BruteForce",
+      "Infilteration",
+      "SQL Injection",
+      "SSH-Bruteforce"
+    ],
+    "class_names": [
+      "Benign",
+      "BruteForce",
+      "Bot",
+      "DoS",
+      "DDoS",
+      "Infiltration",
+      "WebAttack"
+    ],
+    "group_hash": "pandas hash of 39 ordered float64 raw features (uint64)",
+    "cleaning_policy": {
+      "duplicate_key": "39_raw_float64_predictors",
+      "keep": "first_source_row",
+      "conflict_target": "binary_label",
+      "conflict_action": "drop_entire_input_group",
+      "attack_metadata": "representative_and_all_source_attack_labels"
+    },
+    "cleaning": {
+      "raw_rows": 18893708,
+      "finite_rows": 18893708,
+      "excluded_nonfinite": 0,
+      "binary_conflict_groups_removed": 0,
+      "binary_conflict_rows_removed": 0,
+      "duplicate_rows_removed": 9912634,
+      "clean_rows": 8981074,
+      "clean_benign": 8436211,
+      "clean_attack": 544863,
+      "groups_with_multiple_original_attack_labels_retained": 1991,
+      "representative_family_counts": [
+        8436211,
+        14720,
+        472,
+        338755,
+        114482,
+        76012,
+        422
+      ],
+      "representative_attack_counts": [
+        8436211,
+        472,
+        190,
+        165,
+        95584,
+        2107,
+        16791,
+        27018,
+        311534,
+        15,
+        188,
+        19,
+        76012,
+        67,
+        14701
+      ]
+    },
+    "attack_metadata_policy": "Original Attack of first source row; mask retains all source Attack labels."
+  },
+  "clients": {
+    "cic_1": {
+      "fit": {
+        "rows": 308370,
+        "benign": 231422,
+        "attack": 76948,
+        "attack_fraction": 0.24953140707591528,
+        "class_counts": [
+          231422,
+          7752,
+          75,
+          30348,
+          2066,
+          36679,
+          28
+        ],
+        "ambiguous_original_attack_inputs": 43,
+        "recipe_file": "data_splits/cic_1/fit.npz",
+        "recipe_sha256": "46111d2798534477408c9963c6ee41ffcc6d6986091e1059fa8cdc5a66d6d358"
+      },
+      "validation": {
+        "rows": 34111,
+        "benign": 25779,
+        "attack": 8332,
+        "attack_fraction": 0.24426138195889888,
+        "class_counts": [
+          25779,
+          866,
+          11,
+          3329,
+          232,
+          3891,
+          3
+        ],
+        "ambiguous_original_attack_inputs": 4,
+        "recipe_file": "data_splits/cic_1/validation.npz",
+        "recipe_sha256": "31cdd618ec1d55bd7d3d945d0fd23d6226e3e5926a87d3634a34da0d957d3c5a"
+      },
+      "test": {
+        "rows": 146314,
+        "benign": 109815,
+        "attack": 36499,
+        "attack_fraction": 0.24945664803094714,
+        "class_counts": [
+          109815,
+          3612,
+          31,
+          14403,
+          989,
+          17452,
+          12
+        ],
+        "ambiguous_original_attack_inputs": 24,
+        "recipe_file": "data_splits/cic_1/test.npz",
+        "recipe_sha256": "3157db5f87e3da4a48a4173bc73dffac15b5b79299fefe150decee74c8300503"
+      }
+    },
+    "cic_2": {
+      "fit": {
+        "rows": 582052,
+        "benign": 368289,
+        "attack": 213763,
+        "attack_fraction": 0.36725756461621983,
+        "class_counts": [
+          368289,
+          168,
+          52,
+          149969,
+          60682,
+          2808,
+          84
+        ],
+        "ambiguous_original_attack_inputs": 990,
+        "recipe_file": "data_splits/cic_2/fit.npz",
+        "recipe_sha256": "476b42153c32098d23450ee3d142cb7e31db68eb579e2341cc43221db4418f26"
+      },
+      "validation": {
+        "rows": 64620,
+        "benign": 41024,
+        "attack": 23596,
+        "attack_fraction": 0.3651501083255958,
+        "class_counts": [
+          41024,
+          19,
+          7,
+          16448,
+          6814,
+          298,
+          10
+        ],
+        "ambiguous_original_attack_inputs": 116,
+        "recipe_file": "data_splits/cic_2/validation.npz",
+        "recipe_sha256": "8cdb8157b27143a002e4eaa1d23ca5c48e36ff680f257d5bae4a61e59d679cc1"
+      },
+      "test": {
+        "rows": 276449,
+        "benign": 174762,
+        "attack": 101687,
+        "attack_fraction": 0.3678327648137631,
+        "class_counts": [
+          174762,
+          78,
+          21,
+          71174,
+          29042,
+          1336,
+          36
+        ],
+        "ambiguous_original_attack_inputs": 485,
+        "recipe_file": "data_splits/cic_2/test.npz",
+        "recipe_sha256": "f1d9bdefe1cb55077fcdd102bb09fe94bf5701511a080ddbd5bce4caafd8ed6a"
+      }
+    },
+    "cic_3": {
+      "fit": {
+        "rows": 55584,
+        "benign": 2551,
+        "attack": 53033,
+        "attack_fraction": 0.9541054979850316,
+        "class_counts": [
+          2551,
+          1410,
+          178,
+          33507,
+          9213,
+          8565,
+          160
+        ],
+        "ambiguous_original_attack_inputs": 199,
+        "recipe_file": "data_splits/cic_3/fit.npz",
+        "recipe_sha256": "9d76ddcaa5feef2a6c0db4ee759bf97f358cf14605b2922268651d4f60ba921e"
+      },
+      "validation": {
+        "rows": 6104,
+        "benign": 284,
+        "attack": 5820,
+        "attack_fraction": 0.953473132372215,
+        "class_counts": [
+          284,
+          158,
+          25,
+          3675,
+          1035,
+          908,
+          19
+        ],
+        "ambiguous_original_attack_inputs": 28,
+        "recipe_file": "data_splits/cic_3/validation.npz",
+        "recipe_sha256": "44f430728322ed49ca42eed894f1cd2996c346e800da12cf7870bc6234935248"
+      },
+      "test": {
+        "rows": 26396,
+        "benign": 1211,
+        "attack": 25185,
+        "attack_fraction": 0.9541218366419154,
+        "class_counts": [
+          1211,
+          657,
+          72,
+          15902,
+          4409,
+          4075,
+          70
+        ],
+        "ambiguous_original_attack_inputs": 102,
+        "recipe_file": "data_splits/cic_3/test.npz",
+        "recipe_sha256": "70514e17b417ef7a831aa170ad7f4d63d0af01f7813fe777d9fba660c9e0cf48"
+      }
+    }
+  },
+  "audit": {
+    "selected_rows": 1500000,
+    "unique_row_ids": 1500000,
+    "shared_input_groups_between_any_client_or_split": 0,
+    "unique_selected_input_groups": 1500000,
+    "duplicate_input_rows": 0
+  },
+  "selection": {
+    "method": "all_clean_attack_then_benign_without_replacement",
+    "max_pool_rows": 1500000,
+    "source_clean_rows": 8981074,
+    "source_clean_attack": 544863,
+    "source_clean_benign": 8436211,
+    "selected_rows": 1500000,
+    "selected_attack": 544863,
+    "selected_benign": 955137,
+    "attack_fraction": 0.363242,
+    "all_clean_attack_rows_selected": true,
+    "all_clean_attack_row_ids_sha256": "e58735ab8af4fa26303c99715a92d650a990849a42a11e68e877c9df430f1bcd",
+    "selected_original_attack_counts": [
+      955137,
+      472,
+      190,
+      165,
+      95584,
+      2107,
+      16791,
+      27018,
+      311534,
+      15,
+      188,
+      19,
+      76012,
+      67,
+      14701
+    ]
+  },
+  "partition": {
+    "method": "attack_family_dirichlet",
+    "alpha": 0.5,
+    "seed": 42,
+    "metadata_groups": [
+      "Benign",
+      "BruteForce",
+      "Bot",
+      "DoS",
+      "DDoS",
+      "Infiltration",
+      "WebAttack"
+    ],
+    "clients": [
+      "cic_1",
+      "cic_2",
+      "cic_3"
+    ],
+    "sampled_group_client_shares": [
+      [
+        0.384254936600445,
+        0.611508767955073,
+        0.00423629544448183
+      ],
+      [
+        0.8308184831970448,
+        0.01804234217911395,
+        0.1511391746238412
+      ],
+      [
+        0.24563459384883682,
+        0.17043259677050085,
+        0.5839328093806623
+      ],
+      [
+        0.14192862930548725,
+        0.7013661690176981,
+        0.1567052016768147
+      ],
+      [
+        0.0287084112237705,
+        0.8432632169521502,
+        0.1280283718240791
+      ],
+      [
+        0.7633116698393588,
+        0.05843722039973673,
+        0.17825110976090447
+      ],
+      [
+        0.10292357692164414,
+        0.30769957329261466,
+        0.5893768497857412
+      ]
+    ],
+    "allocation_counts": {
+      "fit": [
+        [
+          231422,
+          368289,
+          2551
+        ],
+        [
+          7752,
+          168,
+          1410
+        ],
+        [
+          75,
+          52,
+          178
+        ],
+        [
+          30348,
+          149969,
+          33507
+        ],
+        [
+          2066,
+          60682,
+          9213
+        ],
+        [
+          36679,
+          2808,
+          8565
+        ],
+        [
+          28,
+          84,
+          160
+        ]
+      ],
+      "validation": [
+        [
+          25779,
+          41024,
+          284
+        ],
+        [
+          866,
+          19,
+          158
+        ],
+        [
+          11,
+          7,
+          25
+        ],
+        [
+          3329,
+          16448,
+          3675
+        ],
+        [
+          232,
+          6814,
+          1035
+        ],
+        [
+          3891,
+          298,
+          908
+        ],
+        [
+          3,
+          10,
+          19
+        ]
+      ],
+      "test": [
+        [
+          109815,
+          174762,
+          1211
+        ],
+        [
+          3612,
+          78,
+          657
+        ],
+        [
+          31,
+          21,
+          72
+        ],
+        [
+          14403,
+          71174,
+          15902
+        ],
+        [
+          989,
+          29042,
+          4409
+        ],
+        [
+          17452,
+          1336,
+          4075
+        ],
+        [
+          12,
+          36,
+          70
+        ]
+      ]
+    },
+    "client_size_quota": null,
+    "attack_fraction_quota": null,
+    "split_method": "source input hash; same global boundary as the prior CIC study",
+    "global_split_seed": 42,
+    "global_split_fractions": [
+      0.63,
+      0.07,
+      0.3
+    ],
+    "global_split_rows": {
+      "fit": 946006,
+      "validation": 104835,
+      "test": 449159
+    },
+    "rounding": "largest remainder within each metadata group and global split"
+  }
+}

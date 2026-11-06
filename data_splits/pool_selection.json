@@ -1,0 +1,30 @@
+{
+  "method": "all_clean_attack_then_benign_without_replacement",
+  "max_pool_rows": 1500000,
+  "source_clean_rows": 8981074,
+  "source_clean_attack": 544863,
+  "source_clean_benign": 8436211,
+  "selected_rows": 1500000,
+  "selected_attack": 544863,
+  "selected_benign": 955137,
+  "attack_fraction": 0.363242,
+  "all_clean_attack_rows_selected": true,
+  "all_clean_attack_row_ids_sha256": "e58735ab8af4fa26303c99715a92d650a990849a42a11e68e877c9df430f1bcd",
+  "selected_original_attack_counts": [
+    955137,
+    472,
+    190,
+    165,
+    95584,
+    2107,
+    16791,
+    27018,
+    311534,
+    15,
+    188,
+    19,
+    76012,
+    67,
+    14701
+  ]
+}

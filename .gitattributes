@@ -1,0 +1,11 @@
+# Normalize text files to LF for Python, notebooks, and WSL/Linux scripts.
+* text=auto eol=lf
+
+# Windows command scripts use CRLF in the working tree.
+*.cmd text eol=crlf
+*.bat text eol=crlf
+
+# Preserve binary assets exactly.
+*.npz binary
+*.pdf binary
+*.docx binary

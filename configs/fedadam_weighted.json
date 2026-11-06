@@ -1,0 +1,18 @@
+{
+  "baseline_config": "configs/tuning.json",
+  "model": "cnn",
+  "task": "binary",
+  "scenario": "fedadam_weighted",
+  "client_weighting": "number_of_examples",
+  "server_optimizer": "adam",
+  "client_learning_rate_policy": "keep_selected_cnn_client_learning_rate",
+  "server_learning_rates": [0.01, 0.0001, 0.0002, 0.0003, 0.0005, 0.0007, 0.001, 0.0015, 0.002, 0.003, 0.004, 0.005, 0.007, 0.015, 0.02, 0.03, 0.04, 0.05, 0.07, 0.1],
+  "expected_trials": 20,
+  "server_beta_1": 0.9,
+  "server_beta_2": 0.999,
+  "server_epsilon": 1e-7,
+  "selection": "mean_federated_client_validation_attack_f1",
+  "tie_break": ["minimum_client_validation_f1", "mean_client_validation_recall", "lower_mean_validation_far", "earlier_trial"],
+  "checkpoint_selection": "final_round",
+  "test_policy": "select_on_validation_then_retrain_from_scratch_and_test_once"
+}

@@ -1,0 +1,44 @@
+{
+  "protocol": "cic_all_attack_dirichlet_binary_dedup_v1",
+  "seed": 42,
+  "source_csv": "dataset/NF-CSE-CIC-IDS2018-v2/NF-CSE-CIC-IDS2018-v2.csv",
+  "expected_source_sha256": "16a545a3e139b2e85d08b1b7d9d40328c3689a49d0deaafce6dcf8d7b63e1257",
+  "chunksize": 200000,
+  "cleaning": {
+    "duplicate_key": "39_raw_float64_predictors",
+    "keep": "first_source_row",
+    "conflict_target": "binary_label",
+    "conflict_action": "drop_entire_input_group",
+    "attack_metadata": "representative_and_all_source_attack_labels"
+  },
+  "max_pool_rows": 1500000,
+  "sampling": "all_clean_attack_then_benign_without_replacement",
+  "group_pool_fractions": [
+    0.63,
+    0.07,
+    0.3
+  ],
+  "clients": [
+    "cic_1",
+    "cic_2",
+    "cic_3"
+  ],
+  "partition": {
+    "method": "attack_family_dirichlet",
+    "alpha": 0.5,
+    "seed": 42,
+    "groups": "Benign_and_six_attack_families",
+    "client_size_quota": null,
+    "attack_fraction_quota": null
+  },
+  "preprocessing": "per_client_signed_log1p_zscore_fit_only_clip_8",
+  "class_names": [
+    "Benign",
+    "BruteForce",
+    "Bot",
+    "DoS",
+    "DDoS",
+    "Infiltration",
+    "WebAttack"
+  ]
+}
